@@ -4,32 +4,32 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
-@Controller()
+@Controller('category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  
+
   @UseGuards(JwtAuthGuard)
-  @Post('category')
+  @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.categoryService.create(createCategoryDto);
+    return this.categoryService. CategoryCreate(createCategoryDto);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('categories')
+  @Get()
   findAll() {
-    return this.categoryService.findAll();
+    return this.categoryService. CategoryFindAll();
   }
 
   @UseGuards(JwtAuthGuard)
-  @Put('category/:categoryId')
+  @Put(':categoryId')
   update(@Param('categoryId', ParseIntPipe) categoryId: number, @Body() updateCategoryDto: UpdateCategoryDto) {
-    return this.categoryService.update(categoryId, updateCategoryDto);
+    return this.categoryService. CategoryUpdate(categoryId, updateCategoryDto);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete('category/:categoryId')
+  @Delete(':categoryId')
   remove(@Param('categoryId', ParseIntPipe) categoryId: number) {
-    return this.categoryService.remove(categoryId);
+    return this.categoryService. CategoryRemove(categoryId);
   }
 }

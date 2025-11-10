@@ -8,7 +8,7 @@ export class AuthService {
 
   constructor(private readonly jwtService: JwtService) {}
 
-  async validateUser(email: string, password: string): Promise<any> {
+  async auth(email: string, password: string): Promise<any> {
     if (email === this.adminEmail && password === this.adminPassword) {
       return { email };
     }
@@ -16,7 +16,7 @@ export class AuthService {
   }
 
   async login(email: string, password: string) {
-    const user = await this.validateUser(email, password);
+    const user = await this.auth(email, password);
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }

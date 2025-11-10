@@ -2,9 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
-// import { PrismaService } from '../prisma.service';
-// import { CreateServiceDto } from './dto/create-service.dto';
-// import { UpdateServiceDto } from './dto/update-service.dto';
 
 @Injectable()
 export class ServiceService {
@@ -52,8 +49,6 @@ export class ServiceService {
   async update(categoryId: number, serviceId: number, updateServiceDto: UpdateServiceDto) {
     await this.findOne(categoryId, serviceId);
 
-    // Update service and price options
-    // For price options, let's delete all old and recreate all from DTO for simplicity
     return this.prisma.$transaction(async (tx) => {
       await tx.servicePriceOption.deleteMany({ where: { serviceId } });
 

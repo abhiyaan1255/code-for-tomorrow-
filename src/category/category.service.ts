@@ -3,13 +3,11 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { PrismaService } from 'src/prisma.service';
 
-
-
 @Injectable()
 export class CategoryService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createCategoryDto: CreateCategoryDto) {
+  async  CategoryCreate(createCategoryDto: CreateCategoryDto) {
     return this.prisma.category.create({
       data: {
         name: createCategoryDto.name,
@@ -17,13 +15,13 @@ export class CategoryService {
     });
   }
 
-  async findAll() {
+  async  CategoryFindAll() {
     return this.prisma.category.findMany({
       include: { services: true },
     });
   }
 
-  async findOne(id: number) {
+  async  CategoryFindOne(id: number) {
     const category = await this.prisma.category.findUnique({
       where: { id },
       include: { services: true },
@@ -34,8 +32,8 @@ export class CategoryService {
     return category;
   }
 
-  async update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    await this.findOne(id);
+  async  CategoryUpdate(id: number, updateCategoryDto: UpdateCategoryDto) {
+    await this. CategoryFindOne(id);
     return this.prisma.category.update({
       where: { id },
       data: {
@@ -44,8 +42,8 @@ export class CategoryService {
     });
   }
 
-  async remove(id: number) {
-    const category = await this.findOne(id);
+  async  CategoryRemove(id: number) {
+    const category = await this. CategoryFindOne(id);
     if (category.services.length > 0) {
       throw new BadRequestException('Cannot delete category with services');
     }
